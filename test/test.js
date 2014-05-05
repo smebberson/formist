@@ -113,6 +113,33 @@ describe('formist', function () {
 
 		});
 
+
+		it('a form with a fieldset, and nested fields', function () {
+
+			var form = new formist.Form({
+				action: '/save',
+				method: 'post'
+			});
+
+			var fieldset = form.add(new formist.Fieldset({
+				legend: 'Personal information',
+				attributes: {
+					'class': 'personalInformation'
+				}
+			}));
+
+			fieldset.add(new formist.Field('input', {
+				type: 'text'
+			}));
+
+			fieldset.add(new formist.Field('button', {
+				value: 'Save'
+			}));
+
+			expect(form.render()).to.equal('<form action="/save" method="post"><fieldset class="personalInformation"><legend>Personal information</legend><input type="text" /><button>Save</button></fieldset></form>');
+
+		});
+
 	});
 
 });
