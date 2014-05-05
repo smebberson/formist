@@ -1,0 +1,27 @@
+{
+  "name": "formist",
+  "version": "0.0.0",
+  "description": "A library to publish, consume and validate HTML5 forms.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/smebberson/formist.git"
+  },
+  "keywords": [
+    "HTML5",
+    "forms"
+  ],
+  "author": "Scott Mebberson",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/smebberson/formist/issues"
+  },
+  "homepage": "https://github.com/smebberson/formist",
+  "devDependencies": {
+    "mocha": "1.18.2",
+    "chai": "1.9.1"
+  }
+}
