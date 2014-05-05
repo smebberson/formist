@@ -73,6 +73,13 @@ describe('formist', function () {
 
 		});
 
+		it('should render content within a tag', function () {
+
+			var tag = new Tag('form', {}, '{{content}}');
+			expect(tag.render()).to.equal('<form>{{content}}</form>');
+
+		});
+
 	});
 
 	describe('should render', function () {
@@ -85,6 +92,24 @@ describe('formist', function () {
 			});
 
 			expect(form.render()).to.equal('<form action="/save" method="post"></form>');
+
+		});
+
+		it('a form with a fieldset', function () {
+
+			var form = new formist.Form({
+				action: '/save',
+				method: 'post'
+			});
+
+			form.add(new formist.Fieldset({
+				legend: 'Personal information',
+				attributes: {
+					'class': 'personalInformation'
+				}
+			}));
+
+			expect(form.render()).to.equal('<form action="/save" method="post"><fieldset class="personalInformation"><legend>Personal information</legend></fieldset></form>');
 
 		});
 
