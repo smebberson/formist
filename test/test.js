@@ -173,49 +173,137 @@ describe('formist', function () {
 				fieldset;
 
 			beforeEach(function () {
-
 				form = new formist.Form();
-
-				fieldset = form.add(new formist.Fieldset({
-					legend: 'Personal information'
-				}));
-
 			});
 
-			it("without a label", function () {
+			describe("input:text", function () {
 
-				fieldset.add(new formist.Field('input', {
-					type: 'text'
-				}));
+				it("without attributes", function () {
 
-				expect(form.render()).to.equal('<form><fieldset><legend>Personal information</legend><div class="field"><input type="text" /></div></fieldset></form>');
+					form.add(new formist.Field('input'));
+					expect(form.render()).to.equal('<form><div class="field"><input type="text" /></div></form>');
 
-			});
+				});
 
-			it("with a basic label", function () {
+				it("with any attributes", function () {
 
-				fieldset.add(new formist.Field('input', {
-					type: 'text',
-					label: 'Label'
-				}));
-
-				expect(form.render()).to.equal('<form><fieldset><legend>Personal information</legend><div class="field"><label>Label</label><input type="text" /></div></fieldset></form>');
-
-			});
-
-			it("with a customised label", function () {
-
-				fieldset.add(new formist.Field('input', {
-					type: 'text',
-					label: {
-						label: 'Label',
+					form.add(new formist.Field('input', {
 						attributes: {
-							'class': 'field-label'
+							'class': 'input',
+							'data-validation': 'required'
 						}
-					}
-				}));
+					}));
+					expect(form.render()).to.equal('<form><div class="field"><input class="input" data-validation="required" type="text" /></div></form>');
 
-				expect(form.render()).to.equal('<form><fieldset><legend>Personal information</legend><div class="field"><label class="field-label">Label</label><input type="text" /></div></fieldset></form>');
+				});
+
+			});
+
+			describe("select", function () {
+
+				it("without options or attributes", function () {
+
+					form.add(new formist.Field('select'));
+					expect(form.render()).to.equal('<form><div class="field"><select></select></div></form>');
+
+				});
+
+				it("without options, but any attributes", function () {
+
+					form.add(new formist.Field('select', {
+						attributes: {
+							'class': 'select',
+							'data-validation': 'required'
+						}
+					}));
+					expect(form.render()).to.equal('<form><div class="field"><select class="select" data-validation="required"></select></div></form>');
+
+				});
+
+				describe("with options", function () {
+
+					it("as an array of strings", function () {
+
+						form.add(new formist.Field('select', {
+							options: ['Australia','UK','US']
+						}));
+						expect(form.render()).to.equal('<form><div class="field"><select><option>Australia</option><option>UK</option><option>US</option></select></div></form>');
+
+					});
+
+					it("as an array of objects (label only)", function () {
+
+						form.add(new formist.Field('select', {
+							options: [{label:'Australia'},{label:'UK'},{label:'US'}]
+						}));
+						expect(form.render()).to.equal('<form><div class="field"><select><option>Australia</option><option>UK</option><option>US</option></select></div></form>');
+
+					});
+
+					it("as an array of objects (label and value)", function () {
+
+						form.add(new formist.Field('select', {
+							options: [{label:'Australia',value:'a'},{label:'UK',value:'uk'},{label:'US',value:'us'}]
+						}));
+						expect(form.render()).to.equal('<form><div class="field"><select><option value="a">Australia</option><option value="uk">UK</option><option value="us">US</option></select></div></form>');
+
+					});
+
+					it("as an array of objects with attributes", function () {
+
+						form.add(new formist.Field('select', {
+							options: [{label:'Australia',value:'a',attributes:{selected:true}},{label:'UK',value:'uk'},{label:'US',value:'us',attributes:{disabled:true}}]
+						}));
+						expect(form.render()).to.equal('<form><div class="field"><select><option selected value="a">Australia</option><option value="uk">UK</option><option disabled value="us">US</option></select></div></form>');
+
+					});
+
+				});
+
+			});
+
+			describe("labels", function () {
+
+				beforeEach(function () {
+					form = new formist.Form();
+				});
+
+				it("without a label", function () {
+
+					form.add(new formist.Field('input', {
+						type: 'text'
+					}));
+
+					expect(form.render()).to.equal('<form><div class="field"><input type="text" /></div></form>');
+
+				});
+
+				it("with a basic label", function () {
+
+					form.add(new formist.Field('input', {
+						type: 'text',
+						label: 'Label'
+					}));
+
+					expect(form.render()).to.equal('<form><div class="field"><label>Label</label><input type="text" /></div></form>');
+
+				});
+
+				it("with a customised label", function () {
+
+					form.add(new formist.Field('input', {
+						type: 'text',
+						label: {
+							label: 'Label',
+							attributes: {
+								'class': 'field-label'
+							}
+						}
+					}));
+
+					expect(form.render()).to.equal('<form><div class="field"><label class="field-label">Label</label><input type="text" /></div></form>');
+
+				});
 
 			});
 
