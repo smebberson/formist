@@ -95,6 +95,24 @@ describe('formist', function () {
 
 		});
 
+		it('a form with only fields', function () {
+
+			var form = new formist.Form();
+
+			form.add(new formist.Field('input', {
+				type: 'text'
+			}));
+
+			form.add(new formist.Field('input', {
+				type: 'email'
+			}));
+
+			form.add(new formist.Field('select'));
+
+			expect(form.render()).to.equal('<form><div class="field"><input type="text" /></div><div class="field"><input type="email" /></div><div class="field"><select></select></div></form>');
+
+		})
+
 		describe('a form with fieldsets', function () {
 
 			it('with a default legend', function () {
@@ -156,14 +174,14 @@ describe('formist', function () {
 			}));
 
 			fieldset.add(new formist.Field('input', {
-				type: 'text'
+				type: 'datetime'
 			}));
 
 			fieldset.add(new formist.Field('button', {
 				value: 'Save'
 			}));
 
-			expect(form.render()).to.equal('<form action="/save" method="post"><fieldset class="personalInformation"><legend>Personal information</legend><div class="field"><input type="text" /></div><div class="field"><button>Save</button></div></fieldset></form>');
+			expect(form.render()).to.equal('<form action="/save" method="post"><fieldset class="personalInformation"><legend>Personal information</legend><div class="field"><input type="datetime" /></div><div class="field"><button>Save</button></div></fieldset></form>');
 
 		});
 
@@ -340,6 +358,25 @@ describe('formist', function () {
 				}));
 
 				expect(form.render()).to.equal('<form><div class="fieldset"><fieldset><legend>My fieldset</legend></fieldset></div></form>');
+
+			});
+
+			it("field wrapper", function () {
+
+				var form = new formist.Form({
+					theme: {
+						field: function (content, field) {
+							return '<div class="form-group">' + content + '</div>';
+						}
+					}
+				});
+
+				form.add(new formist.Field('input', {
+					type: 'email',
+					label: 'Email'
+				}));
+
+				expect(form.render()).to.equal('<form><div class="form-group"><label>Email</label><input type="email" /></div></form>');
 
 			});
 
