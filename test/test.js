@@ -95,21 +95,48 @@ describe('formist', function () {
 
 		});
 
-		it('a form with a fieldset', function () {
+		describe('a form with fieldsets', function () {
 
-			var form = new formist.Form({
-				action: '/save',
-				method: 'post'
+			it('with a default legend', function () {
+
+				var form = new formist.Form({
+					action: '/save',
+					method: 'post'
+				});
+
+				form.add(new formist.Fieldset({
+					legend: 'Personal information',
+					attributes: {
+						'class': 'personalInformation'
+					}
+				}));
+
+				expect(form.render()).to.equal('<form action="/save" method="post"><fieldset class="personalInformation"><legend>Personal information</legend></fieldset></form>');
+
 			});
 
-			form.add(new formist.Fieldset({
-				legend: 'Personal information',
-				attributes: {
-					'class': 'personalInformation'
-				}
-			}));
+			it('with a customised legend', function () {
 
-			expect(form.render()).to.equal('<form action="/save" method="post"><fieldset class="personalInformation"><legend>Personal information</legend></fieldset></form>');
+				var form = new formist.Form({
+					action: '/save',
+					method: 'post'
+				});
+
+				form.add(new formist.Fieldset({
+					legend: {
+						label: 'Personal information',
+						attributes: {
+							'class': 'personal'
+						}
+					},
+					attributes: {
+						'class': 'personalInformation'
+					}
+				}));
+
+				expect(form.render()).to.equal('<form action="/save" method="post"><fieldset class="personalInformation"><legend class="personal">Personal information</legend></fieldset></form>');
+
+			});
 
 		});
 
@@ -136,7 +163,7 @@ describe('formist', function () {
 				value: 'Save'
 			}));
 
-			expect(form.render()).to.equal('<form action="/save" method="post"><fieldset class="personalInformation"><legend>Personal information</legend><input type="text" /><button>Save</button></fieldset></form>');
+			expect(form.render()).to.equal('<form action="/save" method="post"><fieldset class="personalInformation"><legend>Personal information</legend><div class="field"><input type="text" /></div><div class="field"><button>Save</button></div></fieldset></form>');
 
 		});
 
