@@ -167,6 +167,60 @@ describe('formist', function () {
 
 		});
 
+		describe('fields', function () {
+
+			var form,
+				fieldset;
+
+			beforeEach(function () {
+
+				form = new formist.Form();
+
+				fieldset = form.add(new formist.Fieldset({
+					legend: 'Personal information'
+				}));
+
+			});
+
+			it("without a label", function () {
+
+				fieldset.add(new formist.Field('input', {
+					type: 'text'
+				}));
+
+				expect(form.render()).to.equal('<form><fieldset><legend>Personal information</legend><div class="field"><input type="text" /></div></fieldset></form>');
+
+			});
+
+			it("with a basic label", function () {
+
+				fieldset.add(new formist.Field('input', {
+					type: 'text',
+					label: 'Label'
+				}));
+
+				expect(form.render()).to.equal('<form><fieldset><legend>Personal information</legend><div class="field"><label>Label</label><input type="text" /></div></fieldset></form>');
+
+			});
+
+			it("with a customised label", function () {
+
+				fieldset.add(new formist.Field('input', {
+					type: 'text',
+					label: {
+						label: 'Label',
+						attributes: {
+							'class': 'field-label'
+						}
+					}
+				}));
+
+				expect(form.render()).to.equal('<form><fieldset><legend>Personal information</legend><div class="field"><label class="field-label">Label</label><input type="text" /></div></fieldset></form>');
+
+			});
+
+		});
+
 	});
 
 });
