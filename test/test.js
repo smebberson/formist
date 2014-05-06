@@ -309,6 +309,24 @@ describe('formist', function () {
 
 		});
 
+		describe("with a theme", function () {
+
+			it("form wrapper", function () {
+
+				var form = new formist.Form({
+					theme: {
+						form: function (content) {
+							return '<div class="myform">' + content + '</div>';
+						}
+					}
+				});
+
+				expect(form.render()).to.equal('<div class="myform"><form></form></div>');
+
+			});
+
+		});
+
 	});
 
 });
