@@ -325,6 +325,24 @@ describe('formist', function () {
 
 			});
 
+			it("fieldset wrapper", function () {
+
+				var form = new formist.Form({
+					theme: {
+						fieldset: function (content, fieldset) {
+							return '<div class="fieldset">' + content + '</div>';
+						}
+					}
+				});
+
+				form.add(new formist.Fieldset({
+					legend: 'My fieldset'
+				}));
+
+				expect(form.render()).to.equal('<form><div class="fieldset"><fieldset><legend>My fieldset</legend></fieldset></div></form>');
+
+			});
+
 		});
 
 	});
