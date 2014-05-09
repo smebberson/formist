@@ -380,6 +380,30 @@ describe('formist', function () {
 
 			});
 
+
+
+			it("input wrapper", function () {
+
+				var form = new formist.Form({
+					theme: {
+						field: function (content, field) {
+							return '<div class="form-group">' + content + '</div>';
+						},
+						input: function (content, field) {
+							return '<div class="col-sm-8">' + content + '</div>';
+						}
+					}
+				});
+
+				form.add(new formist.Field('input', {
+					type: 'email',
+					label: 'Email'
+				}));
+
+				expect(form.render()).to.equal('<form><div class="form-group"><label>Email</label><div class="col-sm-8"><input type="email" /></div></div></form>');
+
+			});
+
 		});
 
 	});
