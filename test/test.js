@@ -380,8 +380,6 @@ describe('formist', function () {
 
 			});
 
-
-
 			it("input wrapper", function () {
 
 				var form = new formist.Form({
@@ -401,6 +399,40 @@ describe('formist', function () {
 				}));
 
 				expect(form.render()).to.equal('<form><div class="form-group"><label>Email</label><div class="col-sm-8"><input type="email" /></div></div></form>');
+
+			});
+
+			it("custom wrapper specific to field", function () {
+
+				var form = new formist.Form({
+					theme: {
+						field: function (content, field) {
+							return '<div class="form-group">' + content + '</div>';
+						},
+						input: function (content, field) {
+							return '<div class="col-sm-8">' + content + '</div>';
+						}
+					}
+				});
+
+				form.add(new formist.Field('input', {
+					type: 'email',
+					label: 'Email'
+				}));
+
+				form.add(new formist.Field('button', {
+					value: 'Save',
+					attributes: {
+						'class': 'btn'
+					},
+					theme: {
+						input: function (content, field) {
+							return '<div class="col-sm-offset-2 col-sm-8">' + content + '</div>';
+						}
+					}
+				}));
+
+				expect(form.render()).to.equal('<form><div class="form-group"><label>Email</label><div class="col-sm-8"><input type="email" /></div></div><div class="form-group"><div class="col-sm-offset-2 col-sm-8"><button class="btn">Save</button></div></div></form>');
 
 			});
 
