@@ -185,6 +185,115 @@ describe('formist', function () {
 
 		});
 
+		describe('field groups', function () {
+
+			var form,
+				fieldset;
+
+			beforeEach(function () {
+				form = new formist.Form();
+			});
+
+			it("multiple text inputs", function () {
+
+				form.add(new formist.Fieldgroup({
+					label: 'Fields'
+				}, [
+
+					new formist.Field('input', {
+						type: 'text'
+					}),
+					new formist.Field('input', {
+						type: 'text'
+					})
+
+				]));
+
+				expect(form.render()).to.equal('<form><div class="field"><label>Fields</label><div class="fields"><input type="text" /><input type="text" /></div></div></form>');
+			});
+
+			it("multiple radio buttons", function () {
+
+				form.add(new formist.Fieldgroup({
+					label: 'Fields'
+				}, [
+
+					new formist.Field('input', {
+						type: 'radio',
+						label: 'Yes',
+						attributes: {
+							name: 'f',
+							value: 'yes'
+						}
+					}),
+					new formist.Field('input', {
+						type: 'radio',
+						label: 'No',
+						attributes: {
+							name: 'f',
+							value: 'no'
+						}
+					})
+
+				]));
+
+				expect(form.render()).to.equal('<form><div class="field"><label>Fields</label><div class="fields"><label><input name="f" value="yes" type="radio" /> Yes</label><label><input name="f" value="no" type="radio" /> No</label></div></div></form>');
+
+			});
+
+			it("multiple checkboxes", function () {
+
+				form.add(new formist.Fieldgroup({
+					label: 'Fields'
+				}, [
+
+					new formist.Field('input', {
+						type: 'checkbox',
+						label: 'Saturday',
+						attributes: {
+							name: 'day[]',
+							value: 'saturday'
+						}
+					}),
+					new formist.Field('input', {
+						type: 'checkbox',
+						label: 'Sunday',
+						attributes: {
+							name: 'day[]',
+							value: 'sunday'
+						}
+					})
+
+				]));
+
+				expect(form.render()).to.equal('<form><div class="field"><label>Fields</label><div class="fields"><label><input name="day[]" value="saturday" type="checkbox" /> Saturday</label><label><input name="day[]" value="sunday" type="checkbox" /> Sunday</label></div></div></form>');
+
+			});
+
+			it("multiple selects", function () {
+
+				form.add(new formist.Fieldgroup({
+					label: 'Fields'
+				}, [
+
+					new formist.Field('select', {
+						attributes: {
+							name: 'month'
+						}
+					}),
+					new formist.Field('select', {
+						attributes: {
+							name: 'year'
+						}
+					})
+
+				]));
+
+				expect(form.render()).to.equal('<form><div class="field"><label>Fields</label><div class="fields"><select name="month"></select><select name="year"></select></div></div></form>');
+			});
+
+		});
+
 		describe('fields', function () {
 
 			var form,
@@ -361,33 +470,52 @@ describe('formist', function () {
 
 			});
 
-			it("field wrapper", function () {
+			describe("field wrapper", function () {
 
-				var form = new formist.Form({
-					theme: {
-						field: function (content, field) {
-							return '<div class="form-group">' + content + '</div>';
+				it("without label", function () {
+
+					var form = new formist.Form({
+						theme: {
+							field: function (label, content, field) {
+								return '<div class="form-group">' + label + content + '</div>';
+							}
 						}
-					}
+					});
+
+					form.add(new formist.Field('input', {
+						type: 'email'
+					}));
+
+					expect(form.render()).to.equal('<form><div class="form-group"><input type="email" /></div></form>');
+
 				});
 
-				form.add(new formist.Field('input', {
-					type: 'email',
-					label: 'Email'
-				}));
+				it("with label", function () {
 
-				expect(form.render()).to.equal('<form><div class="form-group"><label>Email</label><input type="email" /></div></form>');
+					var form = new formist.Form({
+						theme: {
+							field: function (label, content, field) {
+								return '<div class="form-group">' + label + content + '</div>';
+							}
+						}
+					});
+
+					form.add(new formist.Field('input', {
+						type: 'email',
+						label: 'Email'
+					}));
+
+					expect(form.render()).to.equal('<form><div class="form-group"><label>Email</label><input type="email" /></div></form>');
+
+				});
 
 			});
 
-			it("input wrapper", function () {
+			it("control wrapper", function () {
 
 				var form = new formist.Form({
 					theme: {
-						field: function (content, field) {
-							return '<div class="form-group">' + content + '</div>';
-						},
-						input: function (content, field) {
+						control: function (content, field) {
 							return '<div class="col-sm-8">' + content + '</div>';
 						}
 					}
@@ -398,41 +526,121 @@ describe('formist', function () {
 					label: 'Email'
 				}));
 
-				expect(form.render()).to.equal('<form><div class="form-group"><label>Email</label><div class="col-sm-8"><input type="email" /></div></div></form>');
+				expect(form.render()).to.equal('<form><div class="field"><label>Email</label><div class="col-sm-8"><input type="email" /></div></div></form>');
 
 			});
 
-			it("custom wrapper specific to field", function () {
+			describe("field group wrapper", function () {
 
-				var form = new formist.Form({
-					theme: {
-						field: function (content, field) {
-							return '<div class="form-group">' + content + '</div>';
-						},
-						input: function (content, field) {
-							return '<div class="col-sm-8">' + content + '</div>';
-						}
-					}
+				it("without label", function () {
+
+					var form = new formist.Form();
+
+					form.add(new formist.Fieldgroup({}, [
+
+						new formist.Field('input', {
+							type: 'email',
+							label: 'Email'
+						}),
+						new formist.Field('input', {
+							type: 'text',
+							label: 'Text'
+						})
+
+					]));
+
+					expect(form.render()).to.equal('<form><div class="field"><div class="fields"><input type="email" /><input type="text" /></div></div></form>');
+
 				});
 
-				form.add(new formist.Field('input', {
-					type: 'email',
-					label: 'Email'
-				}));
+				it("with label", function () {
 
-				form.add(new formist.Field('button', {
-					value: 'Save',
-					attributes: {
-						'class': 'btn'
-					},
+					var form = new formist.Form();
+
+					form.add(new formist.Fieldgroup({
+						label: 'Field group'
+					}, [
+
+						new formist.Field('input', {
+							type: 'email',
+							label: 'Email'
+						}),
+						new formist.Field('input', {
+							type: 'text',
+							label: 'Text'
+						})
+
+					]));
+
+					expect(form.render()).to.equal('<form><div class="field"><label>Field group</label><div class="fields"><input type="email" /><input type="text" /></div></div></form>');
+
+				});
+
+			});
+
+			it("field group > field wrapper", function () {
+				
+				var form = new formist.Form();
+
+				form.add(new formist.Fieldgroup({
+					label: 'Field group',
 					theme: {
-						input: function (content, field) {
-							return '<div class="col-sm-offset-2 col-sm-8">' + content + '</div>';
+						fields: function (content) {
+							return '<ul>' + content + '</ul>';
+						},
+						field: function (label, content, field) {
+							return '<li>' + label + content + '</li>';
 						}
 					}
-				}));
+				}, [
 
-				expect(form.render()).to.equal('<form><div class="form-group"><label>Email</label><div class="col-sm-8"><input type="email" /></div></div><div class="form-group"><div class="col-sm-offset-2 col-sm-8"><button class="btn">Save</button></div></div></form>');
+					new formist.Field('input', {
+						type: 'email',
+						label: 'Email',
+						attributes: {
+							id: 'e'
+						}
+					}),
+					new formist.Field('input', {
+						type: 'text',
+						label: 'Text',
+						attributes: {
+							id: 't'
+						}
+					})
+
+				]));
+
+				expect(form.render()).to.equal('<form><div class="field"><label>Field group</label><ul><li><label for="e">Email</label><input id="e" type="email" /></li><li><label for="t">Text</label><input id="t" type="text" /></li></ul></div></form>');
+
+			});
+
+			describe("wrapper overrides", function () {
+
+				it("specific to control", function () {
+
+					var form = new formist.Form();
+
+					form.add(new formist.Field('input', {
+						type: 'email',
+						label: 'Email'
+					}));
+
+					form.add(new formist.Field('button', {
+						value: 'Save',
+						attributes: {
+							'class': 'btn'
+						},
+						theme: {
+							control: function (content, field) {
+								return '<div class="col-sm-offset-2 col-sm-8">' + content + '</div>';
+							}
+						}
+					}));
+
+					expect(form.render()).to.equal('<form><div class="field"><label>Email</label><input type="email" /></div><div class="field"><div class="col-sm-offset-2 col-sm-8"><button class="btn">Save</button></div></div></form>');
+
+				});
 
 			});
 
