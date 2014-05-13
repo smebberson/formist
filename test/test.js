@@ -113,7 +113,7 @@ describe('formist', function () {
 
 		})
 
-		describe('a form with fieldsets', function () {
+		describe('fieldsets', function () {
 
 			it('with a default legend', function () {
 
@@ -153,6 +153,69 @@ describe('formist', function () {
 				}));
 
 				expect(form.render()).to.equal('<form action="/save" method="post"><fieldset class="personalInformation"><legend class="personal">Personal information</legend></fieldset></form>');
+
+			});
+
+			describe("with help text", function () {
+
+				it("without attributes", function () {
+
+					var form = new formist.Form();
+
+					form.add(new formist.Fieldgroup({
+						label: 'A group of fields',
+						helpText: 'Help text for the group of fields.'
+					}, [
+
+						new formist.Field('input')
+
+					]));
+
+					expect(form.render()).to.equal('<form><div class="field"><label>A group of fields</label><div class="fields"><input type="text" /></div><small class="help-text">Help text for the group of fields.</small></div></form>');
+
+				});
+
+				it("with attributes", function () {
+
+					var form = new formist.Form();
+
+					form.add(new formist.Fieldgroup({
+						label: 'A group of fields',
+						helpText: {
+							text: 'Help text for the group of fields.',
+							attributes: {
+								'class': 'help'
+							}
+						}
+					}, [
+
+						new formist.Field('input')
+
+					]));
+
+					expect(form.render()).to.equal('<form><div class="field"><label>A group of fields</label><div class="fields"><input type="text" /></div><small class="help">Help text for the group of fields.</small></div></form>');
+
+				});
+
+				it("with an alternative tag", function () {
+
+					var form = new formist.Form();
+
+					form.add(new formist.Fieldgroup({
+						label: 'A group of fields',
+						helpText: {
+							text: 'Help text for the group of fields.',
+							tag: 'p'
+						}
+					}, [
+
+						new formist.Field('input')
+
+					]));
+
+					expect(form.render()).to.equal('<form><div class="field"><label>A group of fields</label><div class="fields"><input type="text" /></div><p class="help-text">Help text for the group of fields.</p></div></form>');
+
+				});
 
 			});
 
