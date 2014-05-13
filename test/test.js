@@ -648,6 +648,40 @@ describe('formist', function () {
 
 				});
 
+				it("specific to field", function () {
+
+					var form = new formist.Form({
+						theme: {
+							field: function (label, content) {
+								return '<div class="field-wrapper">' + label + content + '</div>';
+							}
+						}
+					});
+
+					form.add(new formist.Field('input', {
+						type: 'text',
+						label: 'First field'
+					}));
+
+					form.add(new formist.Field('input', {
+						type: 'text',
+						label: 'Second field',
+						theme: {
+							field: function (label, content) {
+								return '<div class="field-wrapper field-without-label">' + content + '</div>';
+							}
+						}
+					}));
+
+					form.add(new formist.Field('input', {
+						type: 'text',
+						label: 'Third field'
+					}));
+
+					expect(form.render()).to.equal('<form><div class="field-wrapper"><label>First field</label><input type="text" /></div><div class="field-wrapper field-without-label"><input type="text" /></div><div class="field-wrapper"><label>Third field</label><input type="text" /></div></form>');
+
+				});
+
 				it("specific to control", function () {
 
 					var form = new formist.Form();
