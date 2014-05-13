@@ -650,6 +650,126 @@ describe('formist', function () {
 
 				describe("specific to fieldgroup", function () {
 
+					it("group", function () {
+
+						var form = new formist.Form({
+							theme: {
+								fieldgroup: {
+									group: function (label, content, elements) {
+										return '<div class="inline-field-group">' + label + content + '</div>';
+									}
+								}
+							}
+						});
+
+						form.add(new formist.Fieldgroup({
+							label: 'First fieldgroup'
+						}, [
+
+							new formist.Field('input', {
+								type: 'text'
+							}),
+							new formist.Field('input', {
+								type: 'text'
+							})
+
+						]));
+
+						form.add(new formist.Fieldgroup({
+							label: 'Second fieldgroup',
+							theme: {
+								group: function (label, content, elements) {
+									return '<div class="inline-fields">' + content + '</div>';
+								}
+							}
+						}, [
+
+							new formist.Field('input', {
+								type: 'text'
+							}),
+							new formist.Field('input', {
+								type: 'text'
+							})
+
+						]));
+
+						form.add(new formist.Fieldgroup({
+							label: 'Third fieldgroup',
+						}, [
+
+							new formist.Field('input', {
+								type: 'text'
+							}),
+							new formist.Field('input', {
+								type: 'text'
+							})
+
+						]));
+
+						expect(form.render()).to.equal('<form><div class="inline-field-group"><label>First fieldgroup</label><div class="fields"><input type="text" /><input type="text" /></div></div><div class="inline-fields"><div class="fields"><input type="text" /><input type="text" /></div></div><div class="inline-field-group"><label>Third fieldgroup</label><div class="fields"><input type="text" /><input type="text" /></div></div></form>');
+
+					});
+
+					it("fields", function () {
+
+						var form = new formist.Form({
+							theme: {
+								fieldgroup: {
+									fields: function (content, elements) {
+										return '<div class="inline-field-group">' + content + '</div>';
+									}
+								}
+							}
+						});
+
+						form.add(new formist.Fieldgroup({
+							label: 'First fieldgroup'
+						}, [
+
+							new formist.Field('input', {
+								type: 'text'
+							}),
+							new formist.Field('input', {
+								type: 'text'
+							})
+
+						]));
+
+						form.add(new formist.Fieldgroup({
+							label: 'Second fieldgroup',
+							theme: {
+								fields: function (content, elements) {
+									return '<div class="hide"></div>';
+								}
+							}
+						}, [
+
+							new formist.Field('input', {
+								type: 'text'
+							}),
+							new formist.Field('input', {
+								type: 'text'
+							})
+
+						]));
+
+						form.add(new formist.Fieldgroup({
+							label: 'Third fieldgroup',
+						}, [
+
+							new formist.Field('input', {
+								type: 'text'
+							}),
+							new formist.Field('input', {
+								type: 'text'
+							})
+
+						]));
+
+						expect(form.render()).to.equal('<form><div class="field"><label>First fieldgroup</label><div class="inline-field-group"><input type="text" /><input type="text" /></div></div><div class="field"><label>Second fieldgroup</label><div class="hide"></div></div><div class="field"><label>Third fieldgroup</label><div class="inline-field-group"><input type="text" /><input type="text" /></div></div></form>');
+
+					});
+
 					it("field", function () {
 
 						var form = new formist.Form({
