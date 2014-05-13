@@ -617,6 +617,37 @@ describe('formist', function () {
 
 			describe("wrapper overrides", function () {
 
+				it("specific to fieldset", function () {
+
+					var form = new formist.Form({
+						theme: {
+							fieldset: function (content) {
+								return '<div class="fieldset-wrapper">' + content + '</div>';
+							}
+						}
+					});
+
+					form.add(new formist.Fieldset({
+						legend: 'First fieldset'
+					}));
+
+					form.add(new formist.Fieldset({
+						legend: 'Second fieldset',
+						theme: {
+							fieldset: function (content) {
+								return '<div class="my-specific-fieldset">' + content + '</div>';
+							}
+						}
+					}));
+
+					form.add(new formist.Fieldset({
+						legend: 'Third fieldset'
+					}));
+
+					expect(form.render()).to.equal('<form><div class="fieldset-wrapper"><fieldset><legend>First fieldset</legend></fieldset></div><div class="my-specific-fieldset"><fieldset><legend>Second fieldset</legend></fieldset></div><div class="fieldset-wrapper"><fieldset><legend>Third fieldset</legend></fieldset></div></form>');
+
+				});
+
 				it("specific to control", function () {
 
 					var form = new formist.Form();
