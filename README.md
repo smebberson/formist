@@ -110,6 +110,7 @@ form.add(formist.Field(tag, options));
 `formist.Field` will take an `Object`, `options`, with the following:
 
 - `label`, `Object`: an object with a label key, and an attributes object representing key-value attributes to apply to the `label` tag. **For brevity, this can be a string, if non attributes are required.** This is optional.
+- `helpText`, `Object`: an object with a `text` key, `tag` key (defaulting to 'small), and an attributes object representing key-value attributes to apply to the `small` tag. **For brevity, this can be a string, if no attributes or tag changes are required.** This is optional.
 - `theme`, `Object`: a key-function object defining theming overrides. This is optional.
 - `attributes`, `Object`: a key-value object defining any HTML tags. This is optional.
 

@@ -434,6 +434,63 @@ describe('formist', function () {
 
 			});
 
+			describe("with help text", function () {
+
+				it("without attributes", function () {
+
+					var form = new formist.Form();
+
+					form.add(new formist.Field('input', {
+						type: 'text',
+						label: 'Label',
+						helpText: 'This is a hint, for a particular field.'
+					}));
+
+					expect(form.render()).to.equal('<form><div class="field"><label>Label</label><input type="text" /><small class="help-text">This is a hint, for a particular field.</small></div></form>');
+
+				});
+
+				it("with attributes", function () {
+
+					var form = new formist.Form();
+
+					form.add(new formist.Field('input', {
+						type: 'text',
+						label: 'Label',
+						helpText: {
+							text: 'This is a hint, for a particular field.',
+							attributes: {
+								'class': 'help'
+							}
+						}
+					}));
+
+					expect(form.render()).to.equal('<form><div class="field"><label>Label</label><input type="text" /><small class="help">This is a hint, for a particular field.</small></div></form>');
+
+				});
+
+				it("with attributes and an alternative tag", function () {
+
+					var form = new formist.Form();
+
+					form.add(new formist.Field('input', {
+						type: 'text',
+						label: 'Label',
+						helpText: {
+							text: 'This is a hint, for a particular field.',
+							tag: 'p',
+							attributes: {
+								'class': 'help'
+							}
+						}
+					}));
+
+					expect(form.render()).to.equal('<form><div class="field"><label>Label</label><input type="text" /><p class="help">This is a hint, for a particular field.</p></div></form>');
+
+				});
+
+			});
+
 		});
 
 		describe("with a theme", function () {
