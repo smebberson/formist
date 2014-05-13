@@ -648,6 +648,76 @@ describe('formist', function () {
 
 				});
 
+				describe("specific to fieldgroup", function () {
+
+					it("field", function () {
+
+						var form = new formist.Form({
+							theme: {
+								fieldgroup: {
+									field: function (label, content, field) {
+										return '<div class="inline-field">' + content + '</div>';
+									}
+								}
+							}
+						});
+
+						form.add(new formist.Fieldgroup({
+							label: 'First fieldgroup'
+						}, [
+
+							new formist.Field('input', {
+								label: 'First fieldgroup, first field',
+								type: 'text'
+							}),
+							new formist.Field('input', {
+								label: 'First fieldgorup, second field',
+								type: 'text'
+							})
+
+						]));
+
+						form.add(new formist.Fieldgroup({
+							label: 'Second fieldgroup',
+							theme: {
+								field: function (label, content, field) {
+									return '<div class="inline-field with-label">' + label + content + '</div>';
+								}
+							}
+						}, [
+
+							new formist.Field('input', {
+								label: 'Second fieldgroup, first field',
+								type: 'text'
+							}),
+							new formist.Field('input', {
+								label: 'Second fieldgroup, second field',
+								type: 'text'
+							})
+
+						]));
+
+						form.add(new formist.Fieldgroup({
+							label: 'Third fieldgroup',
+						}, [
+
+							new formist.Field('input', {
+								label: 'Third fieldgroup, first field',
+								type: 'text'
+							}),
+							new formist.Field('input', {
+								label: 'Third fieldgroup, second field',
+								type: 'text'
+							})
+
+						]));
+
+						expect(form.render()).to.equal('<form><div class="field"><label>First fieldgroup</label><div class="fields"><div class="inline-field"><input type="text" /></div><div class="inline-field"><input type="text" /></div></div></div><div class="field"><label>Second fieldgroup</label><div class="fields"><div class="inline-field with-label"><label>Second fieldgroup, first field</label><input type="text" /></div><div class="inline-field with-label"><label>Second fieldgroup, second field</label><input type="text" /></div></div></div><div class="field"><label>Third fieldgroup</label><div class="fields"><div class="inline-field"><input type="text" /></div><div class="inline-field"><input type="text" /></div></div></div></form>');
+
+					});
+
+				});
+
 				it("specific to field", function () {
 
 					var form = new formist.Form({
