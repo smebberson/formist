@@ -84,6 +84,25 @@ describe('formist', function () {
 
 	describe('should render', function () {
 
+		it('synchronously', function () {
+
+			var form = new formist.Form();
+
+			expect(form.render()).to.equal('<form></form>');
+
+		});
+
+		it('asynchronously', function (done) {
+
+			var form = new formist.Form();
+
+			form.render(function (html) {
+				expect(html).to.equal('<form></form>');
+				return done()
+			});
+
+		});
+
 		it('an empty form', function () {
 
 			var form = new formist.Form({
