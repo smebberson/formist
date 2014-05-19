@@ -51,6 +51,7 @@ var form = new formist.Form(options, elements);
 
 `formist.Form` will take an options object (`options`), with the following:
 
+- `renderTag`, `Boolean`: set this to false, to render the form without `<form></form>` tags. Defaults to true.
 - `theme`, `Object`: a key-function object defining theming overrides. This is optional.
 - `attributes`, `Object`: a key-value object defining any HTML tags (including action and method). This is optional.
 

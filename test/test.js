@@ -116,6 +116,32 @@ describe('formist', function () {
 
 		});
 
+		it('without form tags', function () {
+
+			var form = new formist.Form({
+				renderTag: false,
+				attributes: {
+					action: '/save',
+					method: 'post'
+				}
+			});
+
+			form.add(new formist.Field('input', {
+				attributes: {
+					type: 'text'
+				}
+			}));
+
+			form.add(new formist.Field('input', {
+				attributes: {
+					type: 'text'
+				}
+			}));
+
+			expect(form.render()).to.equal('<div class="field"><input type="text" /></div><div class="field"><input type="text" /></div>');
+
+		});
+
 		it('a form with only fields', function () {
 
 			var form = new formist.Form();
