@@ -1219,6 +1219,55 @@ describe('formist', function () {
 
 		});
 
+		describe("on the Field class, should allow you to", function () {
+
+			it("set an attribute key", function () {
+
+				var form = new formist.Form(),
+					field = form.add(new formist.Field('input', {
+						attributes: {
+							type: 'text'
+						}
+					}));
+
+				field.attribute('class', 'my-class');
+
+				expect(form.render()).to.equal('<form><div class="field"><input type="text" class="my-class" /></div></form>');
+
+			});
+
+			it("get an attribute key", function () {
+
+				var form = new formist.Form(),
+					field = form.add(new formist.Field('input', {
+						attributes: {
+							'type': 'text',
+							'class': 'my-class'
+						}
+					}));
+
+				expect(field.attribute('class')).to.equal('my-class');
+
+			});
+
+			it("override an attribute key", function () {
+
+				var form = new formist.Form(),
+					field = form.add(new formist.Field('input', {
+						attributes: {
+							'type': 'text',
+							'class': 'first-class'
+						}
+					}));
+
+				field.attribute('class', 'my-class');
+
+				expect(form.render()).to.equal('<form><div class="field"><input type="text" class="my-class" /></div></form>');
+
+			});
+
+		});
+
 	});
 
 });
