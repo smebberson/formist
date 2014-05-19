@@ -1,6 +1,6 @@
 {
   "name": "formist",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "A library to publish, consume and validate HTML5 forms.",
   "main": "index.js",
   "scripts": {
