@@ -121,11 +121,15 @@ describe('formist', function () {
 			var form = new formist.Form();
 
 			form.add(new formist.Field('input', {
-				type: 'text'
+				attributes: {
+					type: 'text'
+				}
 			}));
 
 			form.add(new formist.Field('input', {
-				type: 'email'
+				attributes: {
+					type: 'email'
+				}
 			}));
 
 			form.add(new formist.Field('select'));
@@ -264,11 +268,15 @@ describe('formist', function () {
 			}));
 
 			fieldset.add(new formist.Field('input', {
-				type: 'datetime'
+				attributes: {
+					type: 'datetime'
+				}
 			}));
 
 			fieldset.add(new formist.Field('button', {
-				value: 'Save'
+				attributes: {
+					value: 'Save'
+				}
 			}));
 
 			expect(form.render()).to.equal('<form action="/save" method="post"><fieldset class="personalInformation"><legend>Personal information</legend><div class="field"><input type="datetime" /></div><div class="field"><button>Save</button></div></fieldset></form>');
@@ -291,10 +299,14 @@ describe('formist', function () {
 				}, [
 
 					new formist.Field('input', {
-						type: 'text'
+						attributes: {
+							type: 'text'
+						}
 					}),
 					new formist.Field('input', {
-						type: 'text'
+						attributes: {
+							type: 'text'
+						}
 					})
 
 				]));
@@ -309,19 +321,19 @@ describe('formist', function () {
 				}, [
 
 					new formist.Field('input', {
-						type: 'radio',
 						label: 'Yes',
 						attributes: {
 							name: 'f',
-							value: 'yes'
+							value: 'yes',
+							type: 'radio'
 						}
 					}),
 					new formist.Field('input', {
-						type: 'radio',
 						label: 'No',
 						attributes: {
 							name: 'f',
-							value: 'no'
+							value: 'no',
+							type: 'radio'
 						}
 					})
 
@@ -338,19 +350,19 @@ describe('formist', function () {
 				}, [
 
 					new formist.Field('input', {
-						type: 'checkbox',
 						label: 'Saturday',
 						attributes: {
 							name: 'day[]',
-							value: 'saturday'
+							value: 'saturday',
+							type: 'checkbox'
 						}
 					}),
 					new formist.Field('input', {
-						type: 'checkbox',
 						label: 'Sunday',
 						attributes: {
 							name: 'day[]',
-							value: 'sunday'
+							value: 'sunday',
+							type: 'checkbox'
 						}
 					})
 
@@ -488,7 +500,9 @@ describe('formist', function () {
 				it("without a label", function () {
 
 					form.add(new formist.Field('input', {
-						type: 'text'
+						attributes: {
+							type: 'text'
+						}
 					}));
 
 					expect(form.render()).to.equal('<form><div class="field"><input type="text" /></div></form>');
@@ -498,8 +512,10 @@ describe('formist', function () {
 				it("with a basic label", function () {
 
 					form.add(new formist.Field('input', {
-						type: 'text',
-						label: 'Label'
+						label: 'Label',
+						attributes: {
+							type: 'text'
+						}
 					}));
 
 					expect(form.render()).to.equal('<form><div class="field"><label>Label</label><input type="text" /></div></form>');
@@ -509,12 +525,14 @@ describe('formist', function () {
 				it("with a customised label", function () {
 
 					form.add(new formist.Field('input', {
-						type: 'text',
 						label: {
 							label: 'Label',
 							attributes: {
 								'class': 'field-label'
 							}
+						},
+						attributes: {
+							type: 'text'
 						}
 					}));
 
@@ -531,9 +549,11 @@ describe('formist', function () {
 					var form = new formist.Form();
 
 					form.add(new formist.Field('input', {
-						type: 'text',
 						label: 'Label',
-						helpText: 'This is a hint, for a particular field.'
+						helpText: 'This is a hint, for a particular field.',
+						attributes: {
+							type: 'text'
+						}
 					}));
 
 					expect(form.render()).to.equal('<form><div class="field"><label>Label</label><input type="text" /><small class="help-text">This is a hint, for a particular field.</small></div></form>');
@@ -545,13 +565,15 @@ describe('formist', function () {
 					var form = new formist.Form();
 
 					form.add(new formist.Field('input', {
-						type: 'text',
 						label: 'Label',
 						helpText: {
 							text: 'This is a hint, for a particular field.',
 							attributes: {
 								'class': 'help'
 							}
+						},
+						attributes: {
+							type: 'text'
 						}
 					}));
 
@@ -564,7 +586,6 @@ describe('formist', function () {
 					var form = new formist.Form();
 
 					form.add(new formist.Field('input', {
-						type: 'text',
 						label: 'Label',
 						helpText: {
 							text: 'This is a hint, for a particular field.',
@@ -572,6 +593,9 @@ describe('formist', function () {
 							attributes: {
 								'class': 'help'
 							}
+						},
+						attributes: {
+							type: 'text'
 						}
 					}));
 
@@ -630,7 +654,9 @@ describe('formist', function () {
 					});
 
 					form.add(new formist.Field('input', {
-						type: 'email'
+						attributes: {
+							type: 'email'
+						}
 					}));
 
 					expect(form.render()).to.equal('<form><div class="form-group"><input type="email" /></div></form>');
@@ -648,8 +674,10 @@ describe('formist', function () {
 					});
 
 					form.add(new formist.Field('input', {
-						type: 'email',
-						label: 'Email'
+						label: 'Email',
+						attributes: {
+							type: 'email'
+						}
 					}));
 
 					expect(form.render()).to.equal('<form><div class="form-group"><label>Email</label><input type="email" /></div></form>');
@@ -669,8 +697,10 @@ describe('formist', function () {
 				});
 
 				form.add(new formist.Field('input', {
-					type: 'email',
-					label: 'Email'
+					label: 'Email',
+					attributes: {
+						type: 'email'
+					}
 				}));
 
 				expect(form.render()).to.equal('<form><div class="field"><label>Email</label><div class="col-sm-8"><input type="email" /></div></div></form>');
@@ -686,12 +716,16 @@ describe('formist', function () {
 					form.add(new formist.Fieldgroup({}, [
 
 						new formist.Field('input', {
-							type: 'email',
-							label: 'Email'
+							label: 'Email',
+							attributes: {
+								type: 'email'
+							}
 						}),
 						new formist.Field('input', {
-							type: 'text',
-							label: 'Text'
+							label: 'Text',
+							attributes: {
+								type: 'text'
+							}
 						})
 
 					]));
@@ -709,12 +743,16 @@ describe('formist', function () {
 					}, [
 
 						new formist.Field('input', {
-							type: 'email',
-							label: 'Email'
+							label: 'Email',
+							attributes: {
+								type: 'email'
+							}
 						}),
 						new formist.Field('input', {
-							type: 'text',
-							label: 'Text'
+							label: 'Text',
+							attributes: {
+								type: 'text'
+							}
 						})
 
 					]));
@@ -742,17 +780,17 @@ describe('formist', function () {
 				}, [
 
 					new formist.Field('input', {
-						type: 'email',
 						label: 'Email',
 						attributes: {
-							id: 'e'
+							id: 'e',
+							type: 'email'
 						}
 					}),
 					new formist.Field('input', {
-						type: 'text',
 						label: 'Text',
 						attributes: {
-							id: 't'
+							id: 't',
+							type: 'text'
 						}
 					})
 
@@ -814,10 +852,14 @@ describe('formist', function () {
 						}, [
 
 							new formist.Field('input', {
-								type: 'text'
+								attributes: {
+									type: 'text'
+								}
 							}),
 							new formist.Field('input', {
-								type: 'text'
+								attributes: {
+									type: 'text'
+								}
 							})
 
 						]));
@@ -832,10 +874,14 @@ describe('formist', function () {
 						}, [
 
 							new formist.Field('input', {
-								type: 'text'
+								attributes: {
+									type: 'text'
+								}
 							}),
 							new formist.Field('input', {
-								type: 'text'
+								attributes: {
+									type: 'text'
+								}
 							})
 
 						]));
@@ -845,10 +891,14 @@ describe('formist', function () {
 						}, [
 
 							new formist.Field('input', {
-								type: 'text'
+								attributes: {
+									type: 'text'
+								}
 							}),
 							new formist.Field('input', {
-								type: 'text'
+								attributes: {
+									type: 'text'
+								}
 							})
 
 						]));
@@ -874,10 +924,14 @@ describe('formist', function () {
 						}, [
 
 							new formist.Field('input', {
-								type: 'text'
+								attributes: {
+									type: 'text'
+								}
 							}),
 							new formist.Field('input', {
-								type: 'text'
+								attributes: {
+									type: 'text'
+								}
 							})
 
 						]));
@@ -892,10 +946,14 @@ describe('formist', function () {
 						}, [
 
 							new formist.Field('input', {
-								type: 'text'
+								attributes: {
+									type: 'text'
+								}
 							}),
 							new formist.Field('input', {
-								type: 'text'
+								attributes: {
+									type: 'text'
+								}
 							})
 
 						]));
@@ -905,10 +963,14 @@ describe('formist', function () {
 						}, [
 
 							new formist.Field('input', {
-								type: 'text'
+								attributes: {
+									type: 'text'
+								}
 							}),
 							new formist.Field('input', {
-								type: 'text'
+								attributes: {
+									type: 'text'
+								}
 							})
 
 						]));
@@ -935,11 +997,15 @@ describe('formist', function () {
 
 							new formist.Field('input', {
 								label: 'First fieldgroup, first field',
-								type: 'text'
+								attributes: {
+									type: 'text'
+								}
 							}),
 							new formist.Field('input', {
 								label: 'First fieldgorup, second field',
-								type: 'text'
+								attributes: {
+									type: 'text'
+								}
 							})
 
 						]));
@@ -955,11 +1021,15 @@ describe('formist', function () {
 
 							new formist.Field('input', {
 								label: 'Second fieldgroup, first field',
-								type: 'text'
+								attributes: {
+									type: 'text'
+								}
 							}),
 							new formist.Field('input', {
 								label: 'Second fieldgroup, second field',
-								type: 'text'
+								attributes: {
+									type: 'text'
+								}
 							})
 
 						]));
@@ -970,11 +1040,15 @@ describe('formist', function () {
 
 							new formist.Field('input', {
 								label: 'Third fieldgroup, first field',
-								type: 'text'
+								attributes: {
+									type: 'text'
+								}
 							}),
 							new formist.Field('input', {
 								label: 'Third fieldgroup, second field',
-								type: 'text'
+								attributes: {
+									type: 'text'
+								}
 							})
 
 						]));
@@ -996,13 +1070,17 @@ describe('formist', function () {
 					});
 
 					form.add(new formist.Field('input', {
-						type: 'text',
-						label: 'First field'
+						label: 'First field',
+						attributes: {
+							type: 'text'
+						}
 					}));
 
 					form.add(new formist.Field('input', {
-						type: 'text',
 						label: 'Second field',
+						attributes: {
+							type: 'text'
+						},
 						theme: {
 							field: function (label, content) {
 								return '<div class="field-wrapper field-without-label">' + content + '</div>';
@@ -1011,8 +1089,10 @@ describe('formist', function () {
 					}));
 
 					form.add(new formist.Field('input', {
-						type: 'text',
-						label: 'Third field'
+						label: 'Third field',
+						attributes: {
+							type: 'text'
+						}
 					}));
 
 					expect(form.render()).to.equal('<form><div class="field-wrapper"><label>First field</label><input type="text" /></div><div class="field-wrapper field-without-label"><input type="text" /></div><div class="field-wrapper"><label>Third field</label><input type="text" /></div></form>');
@@ -1024,14 +1104,16 @@ describe('formist', function () {
 					var form = new formist.Form();
 
 					form.add(new formist.Field('input', {
-						type: 'email',
-						label: 'Email'
+						label: 'Email',
+						attributes: {
+							type: 'email'
+						}
 					}));
 
 					form.add(new formist.Field('button', {
-						value: 'Save',
 						attributes: {
-							'class': 'btn'
+							'class': 'btn',
+							value: 'Save'
 						},
 						theme: {
 							control: function (content, field) {
