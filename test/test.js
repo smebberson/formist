@@ -1176,6 +1176,49 @@ describe('formist', function () {
 
 		});
 
+		describe("on the Fieldset class, should allow you to", function () {
+
+			it("set an attribute key", function () {
+
+				var form = new formist.Form(),
+					fieldset = form.add(new formist.Fieldset());
+
+				fieldset.attribute('class', 'my-class');
+
+				expect(form.render()).to.equal('<form><fieldset class="my-class"></fieldset></form>');
+
+			});
+
+			it("get an attribute key", function () {
+
+				var form = new formist.Form(),
+					fieldset = form.add(new formist.Fieldset({
+						attributes: {
+							'class': 'my-class'
+						}
+					}));
+
+				expect(fieldset.attribute('class')).to.equal('my-class');
+
+			});
+
+			it("override an attribute key", function () {
+
+				var form = new formist.Form(),
+					fieldset = form.add(new formist.Fieldset({
+						attribute: {
+							'class': 'first-class'
+						}
+					}));
+
+				fieldset.attribute('class', 'my-class');
+
+				expect(form.render()).to.equal('<form><fieldset class="my-class"></fieldset></form>');
+
+			});
+
+		});
+
 	});
 
 });
