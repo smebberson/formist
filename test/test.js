@@ -106,8 +106,10 @@ describe('formist', function () {
 		it('an empty form', function () {
 
 			var form = new formist.Form({
-				action: '/save',
-				method: 'post'
+				attributes: {
+					action: '/save',
+					method: 'post'
+				}
 			});
 
 			expect(form.render()).to.equal('<form action="/save" method="post"></form>');
@@ -137,8 +139,10 @@ describe('formist', function () {
 			it('with a default legend', function () {
 
 				var form = new formist.Form({
-					action: '/save',
-					method: 'post'
+					attributes: {
+						action: '/save',
+						method: 'post'
+					}
 				});
 
 				form.add(new formist.Fieldset({
@@ -155,8 +159,10 @@ describe('formist', function () {
 			it('with a customised legend', function () {
 
 				var form = new formist.Form({
-					action: '/save',
-					method: 'post'
+					attributes: {
+						action: '/save',
+						method: 'post'
+					}
 				});
 
 				form.add(new formist.Fieldset({
@@ -244,8 +250,10 @@ describe('formist', function () {
 		it('a form with a fieldset, and nested fields', function () {
 
 			var form = new formist.Form({
-				action: '/save',
-				method: 'post'
+				attributes: {
+					action: '/save',
+					method: 'post'
+				}
 			});
 
 			var fieldset = form.add(new formist.Fieldset({

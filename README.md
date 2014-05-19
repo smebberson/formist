@@ -51,10 +51,8 @@ var form = new formist.Form(options, elements);
 
 `formist.Form` will take an options object (`options`), with the following:
 
-- `action`, `String`: the action for the form. This is optional.
-- `method`, `String`: the method for the form. This is optional.
 - `theme`, `Object`: a key-function object defining theming overrides. This is optional.
-- `attributes`, `Object`: a key-value object defining any HTML tags. This is optional.
+- `attributes`, `Object`: a key-value object defining any HTML tags (including action and method). This is optional.
 
 `formist.Form` will take an array of `Fieldset`, `Field` or `Fieldgroup` objects (`elements`).
 
