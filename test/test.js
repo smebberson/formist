@@ -1132,4 +1132,50 @@ describe('formist', function () {
 
 	});
 
+	describe("has an API", function () {
+
+		describe("on the Form class, should allow you to", function () {
+
+			it("set an attribute key", function () {
+
+				var form = new formist.Form();
+
+				form.attribute('action', '/save');
+				form.attribute('method', 'post');
+
+				expect(form.render()).to.equal('<form action="/save" method="post"></form>');
+
+			});
+
+			it("get an attribute key", function () {
+
+				var form = new formist.Form({
+					attributes: {
+						action: '/save'
+					}
+				});
+
+				form.attribute('method', 'post');
+
+				expect(form.attribute('method')).to.equal('post');
+				expect(form.attribute('action')).to.equal('/save');
+
+			});
+
+			it("override an attribute key", function () {
+
+				var form = new formist.Form({
+					action: '/save'
+				});
+
+				form.attribute('action', '/save/id');
+
+				expect(form.render()).to.equal('<form action="/save/id"></form>');
+
+			});
+
+		});
+
+	});
+
 });
