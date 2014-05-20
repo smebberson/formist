@@ -515,6 +515,49 @@ describe('formist', function () {
 
 				});
 
+				describe("with a selected option", function () {
+
+					it("as an array of strings", function () {
+
+						form.add(new formist.Field('select', {
+							options: ['Australia','UK','US'],
+							value: 'UK'
+						}));
+						expect(form.render()).to.equal('<form><div class="field"><select><option>Australia</option><option selected>UK</option><option>US</option></select></div></form>');
+
+					});
+
+					it("as an array of objects (label only)", function () {
+
+						form.add(new formist.Field('select', {
+							options: [{label:'Australia'},{label:'UK'},{label:'US'}],
+							value: 'US'
+						}));
+						expect(form.render()).to.equal('<form><div class="field"><select><option>Australia</option><option>UK</option><option selected>US</option></select></div></form>');
+
+					});
+
+					it("as an array of objects (label and value)", function () {
+
+						form.add(new formist.Field('select', {
+							options: [{label:'Australia',value:'a'},{label:'UK',value:'uk'},{label:'US',value:'us'}],
+							value: 'a'
+						}));
+						expect(form.render()).to.equal('<form><div class="field"><select><option value="a" selected>Australia</option><option value="uk">UK</option><option value="us">US</option></select></div></form>');
+
+					});
+
+					it("as an array of objects with a selected attribute", function () {
+
+						form.add(new formist.Field('select', {
+							options: [{label:'Australia',value:'a',attributes:{selected:true}},{label:'UK',value:'uk'},{label:'US',value:'us',attributes:{disabled:true}}]
+						}));
+						expect(form.render()).to.equal('<form><div class="field"><select><option selected value="a">Australia</option><option value="uk">UK</option><option disabled value="us">US</option></select></div></form>');
+
+					});
+
+				});
+
 			});
 
 			describe("labels", function () {
