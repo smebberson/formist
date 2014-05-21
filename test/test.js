@@ -560,6 +560,36 @@ describe('formist', function () {
 
 			});
 
+			describe("multiple select", function () {
+
+				it("with a string value", function () {
+
+					form.add(new formist.Field('select', {
+						attributes: {
+							multiple: true
+						},
+						options: [{label:'Australia',value:'a'},{label:'UK',value:'uk'},{label:'US',value:'us'}],
+						value: 'a'
+					}));
+					expect(form.render()).to.equal('<form><div class="field"><select multiple><option value="a" selected>Australia</option><option value="uk">UK</option><option value="us">US</option></select></div></form>');
+
+				});
+
+				it("with an array value", function () {
+
+					form.add(new formist.Field('select', {
+						attributes: {
+							multiple: true
+						},
+						options: [{label:'Australia',value:'a'},{label:'UK',value:'uk'},{label:'US',value:'us'}],
+						value: ['a','uk']
+					}));
+					expect(form.render()).to.equal('<form><div class="field"><select multiple><option value="a" selected>Australia</option><option value="uk" selected>UK</option><option value="us">US</option></select></div></form>');
+
+				});
+
+			});
+
 			describe("labels", function () {
 
 				beforeEach(function () {
