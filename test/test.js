@@ -513,6 +513,22 @@ describe('formist', function () {
 
 					});
 
+					it("without altering original object", function () {
+
+						var opts = [{label:'Australia',value:'a'},{label:'UK',value:'uk'},{label:'US',value:'us'}];
+
+						form.add(new formist.Field('select', {
+							options: opts,
+							value: 'a'
+						}));
+
+						// render the form
+						form.render();
+
+						expect(opts[0]).to.not.have.property('attributes');
+
+					});
+
 				});
 
 				describe("with a selected option", function () {
