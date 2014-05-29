@@ -80,6 +80,17 @@ describe('formist', function () {
 
 		});
 
+		it('should escape &, \', " within attributes', function () {
+
+			var tag = new Tag('input', {
+				type: 'text',
+				disabled: true,
+				'value': 'this "should" be escaped'
+			});
+			expect(tag.render()).to.equal('<input type="text" disabled value="this &quot;should&quot; be escaped" />');
+
+		});
+
 	});
 
 	describe('should render', function () {
