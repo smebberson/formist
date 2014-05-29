@@ -85,9 +85,10 @@ describe('formist', function () {
 			var tag = new Tag('input', {
 				type: 'text',
 				disabled: true,
-				'value': 'this "should" be escaped'
+				'value': 'this "should" be escaped',
+				'data-order': 10
 			});
-			expect(tag.render()).to.equal('<input type="text" disabled value="this &quot;should&quot; be escaped" />');
+			expect(tag.render()).to.equal('<input type="text" disabled value="this &quot;should&quot; be escaped" data-order="10" />');
 
 		});
 
