@@ -3,8 +3,11 @@
   "version": "0.1.10",
   "description": "A library to publish, consume and validate HTML5 forms.",
   "main": "index.js",
+  "engines": {
+    "node": ">= 0.12.0"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha"
   },
   "repository": {
     "type": "git",
@@ -21,10 +24,10 @@
   },
   "homepage": "https://github.com/smebberson/formist",
   "devDependencies": {
-    "mocha": "1.18.2",
-    "chai": "1.9.1"
+    "mocha": "2.4.5",
+    "chai": "2.1.0"
   },
   "dependencies": {
-    "clone": "0.1.15"
+    "clone": "1.0.2"
   }
 }

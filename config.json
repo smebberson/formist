@@ -1,0 +1,9 @@
+{
+    "hostname": "formist.local",
+    "ip": "192.168.23.97",
+    "memory": 1024,
+    "cpus": 1,
+    "env": {
+        "NODE_ENV": "development"
+    }
+}
