@@ -1,5 +1,6 @@
-formist
-=======
+# formist
+
+[![Build Status](https://travis-ci.org/smebberson/formist.svg?branch=master)](https://travis-ci.org/smebberson/formist)
 
 Formist is a node.js forms library.
 
