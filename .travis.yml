@@ -3,3 +3,5 @@ node_js:
     - "0.12"
     - "4.2"
     - "stable"
+after_script:
+  - "test -e ./coverage/lcov.info && npm install coveralls@2 && cat ./coverage/lcov.info | coveralls"

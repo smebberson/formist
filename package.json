@@ -7,7 +7,8 @@
     "node": ">= 0.12.0"
   },
   "scripts": {
-    "test": "mocha"
+    "test": "mocha --trace-deprecation --check-leaks --bail",
+    "coverage": "./node_modules/.bin/istanbul cover _mocha -- --trace-deprecation --check-leaks --bail"
   },
   "repository": {
     "type": "git",
@@ -24,8 +25,9 @@
   },
   "homepage": "https://github.com/smebberson/formist",
   "devDependencies": {
-    "mocha": "2.4.5",
-    "chai": "2.1.0"
+    "chai": "2.1.0",
+    "istanbul": "0.4.2",
+    "mocha": "2.4.5"
   },
   "dependencies": {
     "clone": "1.0.2"
