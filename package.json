@@ -7,9 +7,9 @@
     "node": ">= 0.12.0"
   },
   "scripts": {
-    "test": "mocha --trace-deprecation --check-leaks --bail",
-    "coverage": "./node_modules/.bin/istanbul cover _mocha -- --trace-deprecation --check-leaks --bail",
-    "travis": "./node_modules/.bin/istanbul cover ./node_modules/.bin/_mocha --report lcovonly -- --trace-deprecation --check-leaks --bail"
+    "test": "./node_modules/.bin/mocha --trace-deprecation --check-leaks --bail",
+    "coverage": "./vagrant/scripts/test-coverage",
+    "travis": "./vagrant/scripts/test-travis"
   },
   "repository": {
     "type": "git",
