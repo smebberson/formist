@@ -8,7 +8,8 @@
   },
   "scripts": {
     "test": "mocha --trace-deprecation --check-leaks --bail",
-    "coverage": "./node_modules/.bin/istanbul cover _mocha -- --trace-deprecation --check-leaks --bail"
+    "coverage": "./node_modules/.bin/istanbul cover _mocha -- --trace-deprecation --check-leaks --bail",
+    "travis": "./node_modules/.bin/istanbul cover ./node_modules/.bin/_mocha --report lcovonly -- --trace-deprecation --check-leaks --bail"
   },
   "repository": {
     "type": "git",
