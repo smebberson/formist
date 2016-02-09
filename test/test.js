@@ -1,11 +1,22 @@
 
 var expect = require('chai').expect,
 	formist = require('../'),
-	Tag = require('../lib/tag');
+	Tag = require('../lib/tag'),
+	Field = require('../lib/field');
 
 describe('formist', function () {
 
 	describe('has a tag class, which', function () {
+
+		it('expects a name value', function () {
+
+			var fn = function () {
+				var tag = new Tag();
+			}
+
+			expect(fn).to.throw(Error);
+
+		});
 
 		it('should render a simple opening and closing tag', function () {
 
@@ -89,6 +100,30 @@ describe('formist', function () {
 				'data-order': 10
 			});
 			expect(tag.render()).to.equal('<input type="text" disabled value="this &quot;should&quot; be escaped" data-order="10" />');
+
+		});
+
+	});
+
+	describe('has a field class, which', function () {
+
+		it('expects a tag value', function () {
+
+			var fn = function () {
+				var tagWithoutName = new Field();
+			}
+
+			expect(fn).to.throw(Error);
+
+		});
+
+		it('expects a tag value as a string', function () {
+
+			var fn = function () {
+				var tagWithTagAsName = new Field(new Tag());
+			}
+
+			expect(fn).to.throw(Error);
 
 		});
 
@@ -891,7 +926,7 @@ describe('formist', function () {
 			});
 
 			it("field group > field wrapper", function () {
-				
+
 				var form = new formist.Form();
 
 				form.add(new formist.Fieldgroup({
