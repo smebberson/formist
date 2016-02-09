@@ -1,6 +1,7 @@
 # formist
 
 [![Build Status](https://travis-ci.org/smebberson/formist.svg?branch=master)](https://travis-ci.org/smebberson/formist)
+[![Coverage Status](https://coveralls.io/repos/github/smebberson/formist/badge.svg?branch=master)](https://coveralls.io/github/smebberson/formist?branch=master)
 
 Formist is a node.js forms library.
 
