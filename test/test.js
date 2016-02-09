@@ -1,8 +1,7 @@
 
 var expect = require('chai').expect,
 	formist = require('../'),
-	Tag = require('../lib/tag'),
-	Field = require('../lib/field');
+	Tag = require('../lib/tag');
 
 describe('formist', function () {
 
@@ -110,7 +109,7 @@ describe('formist', function () {
 		it('expects a tag value', function () {
 
 			var fn = function () {
-				var tagWithoutName = new Field();
+				var tagWithoutName = new formist.Field();
 			}
 
 			expect(fn).to.throw(Error);
@@ -120,10 +119,57 @@ describe('formist', function () {
 		it('expects a tag value as a string', function () {
 
 			var fn = function () {
-				var tagWithTagAsName = new Field(new Tag());
+				var tagWithTagAsName = new formist.Field(new Tag());
 			}
 
 			expect(fn).to.throw(Error);
+
+		});
+
+	});
+
+	describe('has a Fieldset class, which', function () {
+
+		it('accepts an optional option parameter', function () {
+
+			var fieldset = new formist.Fieldset(
+				{
+					attributes: {
+						name: 'fieldset'
+					}
+				},
+				[ new formist.Field('input') ]
+			);
+
+			expect(fieldset).to.have.property('options');
+			expect(fieldset.options).to.have.property('attributes');
+			expect(fieldset.options.attributes).to.eql({ name: 'fieldset' });
+
+		});
+
+		it('accept an elements array as the first parameter', function () {
+
+			var fieldset = new formist.Fieldset([
+				new formist.Field('input')
+			]);
+
+			expect(fieldset).to.have.property('options');
+			expect(fieldset.options).to.eql({ theme: {} });
+
+			expect(fieldset).to.have.property('elements');
+			expect(fieldset.elements).to.have.length(1);
+
+		});
+
+		it('expects no parameters', function () {
+
+			var fieldset = new formist.Fieldset();
+
+			expect(fieldset).to.have.property('options');
+			expect(fieldset.options).to.eql({ theme: {} });
+
+			expect(fieldset).to.have.property('elements');
+			expect(fieldset.elements).to.have.length(0);
 
 		});
 

@@ -77,10 +77,10 @@ A `Fieldset` represents a standard HTML fieldset. A `Fieldset` can contain multi
 #### To create a fieldset
 
 ```js
-var fieldset = form.add(formist.Fieldset(options, elements));
+var fieldset = form.add(formist.Fieldset([options, elements]));
 ```
 
-`formist.Fieldset` will take an options object (`options`), with the following:
+`formist.Fieldset` will optionally take an options object (`options`), with the following:
 
 - `legend`, `String`: a string value for the HTML `legend` tag. This is optional.
 - `theme`, `Object`: a key-function object defining theming overrides. This is optional.
