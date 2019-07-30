@@ -102,6 +102,13 @@ describe('formist', function () {
 
 		});
 
+		it('should escape content tags', function () {
+
+			var tag = new Tag("option", {}, '" /><script>alert(\'xss\')</script><option name="');
+			expect(tag.render()).to.equal('<option>&quot; /&gt;&lt;script&gt;alert(&#39;xss&#39;)&lt;/script&gt;&lt;option name=&quot;</option>');
+
+		});
+
 	});
 
 	describe('has a field class, which', function () {
